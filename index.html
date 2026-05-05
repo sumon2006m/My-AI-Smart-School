@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Smart School LMS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>🏫 AI Smart School LMS</header>
+
+<div id="loginScreen" class="screen active">
+  <div class="card">
+    <h3>🔐 Login</h3>
+
+    <select id="schoolId">
+      <option value="101">ABC School</option>
+      <option value="102">XYZ School</option>
+    </select>
+
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <p id="msg"></p>
+  </div>
+</div>
+
+<div id="dashboard" class="screen">
+  <div class="card">
+    👋 Welcome <span id="userName"></span>
+  </div>
+
+  <div class="grid">
+    <div class="card" onclick="show('courses')">📚 Courses</div>
+    <div class="card" onclick="show('quiz')">🧠 Quiz</div>
+    <div class="card" onclick="show('leaderboard')">🏆 Rank</div>
+  </div>
+
+  <button onclick="logout()">Logout</button>
+</div>
+
+<div id="courses" class="screen">
+  <h3>📚 Courses</h3>
+  <div id="courseBox"></div>
+</div>
+
+<div id="quiz" class="screen">
+  <h3>🧠 Quiz</h3>
+  <div id="quizBox"></div>
+</div>
+
+<div id="leaderboard" class="screen">
+  <h3>🏆 Leaderboard</h3>
+  <div id="leadBox"></div>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
