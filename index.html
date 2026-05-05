@@ -15,10 +15,8 @@
   <div class="card">
     <h3>🔐 Login</h3>
 
-    <select id="schoolId">
-      <option value="101">ABC School</option>
-      <option value="102">XYZ School</option>
-    </select>
+    <!-- 🔥 Dynamic School -->
+    <select id="schoolId"></select>
 
     <input id="username" placeholder="Username">
     <input id="password" type="password" placeholder="Password">
@@ -30,7 +28,12 @@
 
 <!-- DASHBOARD -->
 <div id="dashboard" class="screen">
-  <div class="card">👋 Welcome <span id="userName"></span></div>
+  <div class="card">
+    👋 Welcome <span id="userName"></span><br>
+    🏫 <span id="schoolName"></span><br>
+    🎓 Class: <span id="userClass"></span><br>
+    📱 Mobile: <span id="userMobile"></span>
+  </div>
 
   <div class="grid">
     <div class="card" onclick="show('courses')">📚 Courses</div>
