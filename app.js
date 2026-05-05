@@ -19,8 +19,14 @@ async function login(){
 
   if(user){
     currentUser = user;
+
     localStorage.setItem("user", JSON.stringify(user));
+
+    // ✅ FULL PROFILE SHOW
     document.getElementById("userName").innerText = user.name;
+    document.getElementById("schoolName").innerText = user.school_name;
+    document.getElementById("userClass").innerText = user.class;
+    document.getElementById("userMobile").innerText = user.mobile;
 
     saveLog("Login");
     showScreen("dashboard");
@@ -32,12 +38,41 @@ async function login(){
 
 // ================= AUTO LOGIN =================
 window.onload = ()=>{
+  loadSchools(); // ✅ add this
+
   const saved = localStorage.getItem("user");
+
   if(saved){
     currentUser = JSON.parse(saved);
+
     document.getElementById("userName").innerText = currentUser.name;
+    document.getElementById("schoolName").innerText = currentUser.school_name;
+    document.getElementById("userClass").innerText = currentUser.class;
+    document.getElementById("userMobile").innerText = currentUser.mobile;
+
     showScreen("dashboard");
   }
+}
+
+// ================= LOAD SCHOOL =================
+async function loadSchools(){
+
+  const res = await fetch(API_USERS);
+  const users = await res.json();
+
+  const schools = [...new Map(users.map(u =>
+    [u.school_id, u]
+  )).values()];
+
+  let html = "";
+
+  schools.forEach(s=>{
+    html += `<option value="${s.school_id}">
+      ${s.school_name}
+    </option>`;
+  });
+
+  document.getElementById("schoolId").innerHTML = html;
 }
 
 // ================= LOGOUT =================
@@ -74,7 +109,11 @@ async function saveLog(action){
       data:[{
         timestamp:new Date().toLocaleString(),
         username:currentUser.username,
+        name:currentUser.name,
+        class:currentUser.class,
         school_id:currentUser.school_id,
+        school_name:currentUser.school_name,
+        mobile:currentUser.mobile,
         action:action
       }]
     })
@@ -90,8 +129,8 @@ async function loadCourses(){
   const cls = document.getElementById("classFilter").value;
 
   const filtered = data.filter(c =>
-    c.school === currentUser.school_id &&
-    (cls==="" || c.class===cls)
+    c.school_id === currentUser.school_id &&   // ✅ FIX
+    (cls === "" || c.class === cls)
   );
 
   let html = "";
@@ -115,9 +154,14 @@ async function loadQuiz(){
   const res = await fetch(API_QUIZ);
   const data = await res.json();
 
+  // ✅ class based filter
+  const filtered = data.filter(q =>
+    !q.class || q.class === currentUser.class
+  );
+
   let html = "";
 
-  data.forEach((q,i)=>{
+  filtered.forEach((q,i)=>{
     html += `
       <div class="card">
         <b>${q.question}</b><br>
@@ -129,9 +173,10 @@ async function loadQuiz(){
   });
 
   document.getElementById("quizBox").innerHTML = html;
-  window.quizData = data;
+  window.quizData = filtered;
 }
 
+// ================= CHECK ANSWER =================
 function check(i,ans){
 
   if(window.quizData[i].correct == ans){
@@ -144,6 +189,23 @@ function check(i,ans){
   }
 }
 
+// ================= SAVE SCORE =================
+async function saveScore(){
+
+  await fetch(API_LEADERBOARD,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({
+      data:[{
+        name: currentUser.name,
+        score: score
+      }]
+    })
+  });
+
+  alert("🏆 Score Saved: " + score);
+}
+
 // ================= LEADERBOARD =================
 async function loadLeaderboard(){
 
@@ -151,7 +213,8 @@ async function loadLeaderboard(){
   const data = await res.json();
 
   let html = "";
-  data.sort((a,b)=>b.score-a.score);
+
+  data.sort((a,b)=>b.score - a.score);
 
   data.forEach(u=>{
     html += `<div class="card">${u.name} - ${u.score}</div>`;
