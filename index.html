@@ -10,6 +10,7 @@
 
 <header>🏫 AI Smart School LMS</header>
 
+<!-- LOGIN -->
 <div id="loginScreen" class="screen active">
   <div class="card">
     <h3>🔐 Login</h3>
@@ -23,15 +24,13 @@
     <input id="password" type="password" placeholder="Password">
 
     <button onclick="login()">Login</button>
-
     <p id="msg"></p>
   </div>
 </div>
 
+<!-- DASHBOARD -->
 <div id="dashboard" class="screen">
-  <div class="card">
-    👋 Welcome <span id="userName"></span>
-  </div>
+  <div class="card">👋 Welcome <span id="userName"></span></div>
 
   <div class="grid">
     <div class="card" onclick="show('courses')">📚 Courses</div>
@@ -42,16 +41,26 @@
   <button onclick="logout()">Logout</button>
 </div>
 
+<!-- COURSES -->
 <div id="courses" class="screen">
   <h3>📚 Courses</h3>
+
+  <select id="classFilter" onchange="loadCourses()">
+    <option value="">All Classes</option>
+    <option value="6">Class 6</option>
+    <option value="7">Class 7</option>
+  </select>
+
   <div id="courseBox"></div>
 </div>
 
+<!-- QUIZ -->
 <div id="quiz" class="screen">
   <h3>🧠 Quiz</h3>
   <div id="quizBox"></div>
 </div>
 
+<!-- LEADERBOARD -->
 <div id="leaderboard" class="screen">
   <h3>🏆 Leaderboard</h3>
   <div id="leadBox"></div>
@@ -59,6 +68,5 @@
 
 <script src="config.js"></script>
 <script src="app.js"></script>
-
 </body>
 </html>
