@@ -1,4 +1,7 @@
-const API_USERS = "https://sheetdb.io/api/v1/YOUR_USERS_API";
-const API_COURSES = "https://sheetdb.io/api/v1/YOUR_COURSE_API";
-const API_QUIZ = "https://sheetdb.io/api/v1/YOUR_QUIZ_API";
-const API_LEADERBOARD = "https://sheetdb.io/api/v1/YOUR_LEADERBOARD_API";
+const BASE = "https://sheetdb.io/api/v1/abc123xyz"; // 🔥 CHANGE THIS
+
+const API_USERS = BASE + "?sheet=users";
+const API_COURSES = BASE + "?sheet=courses";
+const API_QUIZ = BASE + "?sheet=quiz";
+const API_LEADERBOARD = BASE + "?sheet=leaderboard";
+const API_LOGS = BASE + "?sheet=logs";
