@@ -15,7 +15,6 @@
   <div class="card">
     <h3>🔐 Login</h3>
 
-    <!-- School -->
     <select id="schoolId"></select>
 
     <input id="username" placeholder="Username">
@@ -39,6 +38,9 @@
     <div class="card" onclick="show('courses')">📚 Courses</div>
     <div class="card" onclick="show('quiz')">🧠 Quiz</div>
     <div class="card" onclick="show('leaderboard')">🏆 Rank</div>
+
+    <!-- 🔥 ADMIN BUTTON -->
+    <div class="card" onclick="openAdmin()">⚙️ Admin</div>
   </div>
 
   <button onclick="logout()">Logout</button>
@@ -48,7 +50,6 @@
 <div id="courses" class="screen">
   <h3>📚 Courses</h3>
 
-  <!-- Class Filter -->
   <select id="classFilter" onchange="loadCourses()">
     <option value="">All Classes</option>
     <option value="6">Class 6</option>
@@ -63,16 +64,30 @@
   <h3>🧠 Quiz</h3>
   <div id="quizBox"></div>
 
-  <!-- 🔥 ADD SCORE BUTTON -->
-  <button onclick="saveScore()" style="margin-top:10px;">
-    Submit Score
-  </button>
+  <button onclick="saveScore()">Submit Score</button>
 </div>
 
 <!-- LEADERBOARD -->
 <div id="leaderboard" class="screen">
   <h3>🏆 Leaderboard</h3>
   <div id="leadBox"></div>
+</div>
+
+<!-- 🔥 ADMIN PANEL -->
+<div id="adminPanel" class="screen">
+  <h3>⚙️ Admin Panel</h3>
+
+  <div class="grid">
+    <div class="card" onclick="adminView('users')">👤 Users</div>
+    <div class="card" onclick="adminView('courses')">📚 Courses</div>
+    <div class="card" onclick="adminView('quiz')">🧠 Quiz</div>
+    <div class="card" onclick="adminView('leaderboard')">🏆 Leaderboard</div>
+    <div class="card" onclick="adminView('logs')">📜 Logs</div>
+  </div>
+
+  <div id="adminBox"></div>
+
+  <button onclick="show('dashboard')">⬅ Back</button>
 </div>
 
 <script src="config.js"></script>
