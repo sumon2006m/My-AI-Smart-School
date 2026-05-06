@@ -15,7 +15,7 @@
   <div class="card">
     <h3>🔐 Login</h3>
 
-    <!-- 🔥 Dynamic School -->
+    <!-- School -->
     <select id="schoolId"></select>
 
     <input id="username" placeholder="Username">
@@ -48,6 +48,7 @@
 <div id="courses" class="screen">
   <h3>📚 Courses</h3>
 
+  <!-- Class Filter -->
   <select id="classFilter" onchange="loadCourses()">
     <option value="">All Classes</option>
     <option value="6">Class 6</option>
@@ -61,6 +62,11 @@
 <div id="quiz" class="screen">
   <h3>🧠 Quiz</h3>
   <div id="quizBox"></div>
+
+  <!-- 🔥 ADD SCORE BUTTON -->
+  <button onclick="saveScore()" style="margin-top:10px;">
+    Submit Score
+  </button>
 </div>
 
 <!-- LEADERBOARD -->
